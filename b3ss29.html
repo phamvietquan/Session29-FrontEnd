@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      let choice;
+      let menuRestaurant = [];
+      // hàm thêm món ăn
+      function addDish() {
+        let nameDish = prompt("Mời bạn nhập tên món ăn");
+        let price = +prompt("Mời bạn nhập giá món ăn");
+        let describe = prompt("Mời bạn nhập mô tả món ăn");
+        let restaurant = {
+          name: nameDish,
+          price: price,
+          describe: describe,
+        };
+        menuRestaurant.push(restaurant);
+        console.log("Thêm món ăn vào menu thành công");
+      }
+      // hàm input menu
+      function inputRestaurant() {
+        menuRestaurant.forEach((el) => {
+          console.log(el);
+        });
+      }
+      // xoá món ăn theo tên
+      function deleteDish() {
+        let name = prompt("Mời bạn nhập tên món ăn muốn xoá");
+        let checkDish = menuRestaurant.findIndex((el) => el.name === name);
+        if (checkDish !== -1) {
+          menuRestaurant.splice(checkDish, 1);
+          alert("Xoá món ăn thành công");
+        } else {
+          alert("Không tìm thấy tên món ăn");
+          return;
+        }
+      }
+      //cập nhập thông tin theo tên món ăn
+      function updateDish() {
+        let name = prompt("mời bạn nhập tên món ăn");
+        let checkDish = menuRestaurant.find((el) => el.name === name);
+        if (checkDish) {
+          alert("cập nhập lại thông tin món ăn");
+          let nameDish = prompt("Mời bạn nhập tên món ăn");
+          let price = +prompt("Mời bạn nhập giá món ăn");
+          let describe = prompt("Mời bạn nhập mô tả món ăn");
+          checkDish.name = nameDish;
+          checkDish.price = price;
+          checkDish.describe = describe;
+          alert("Cập nhập món ăn thành công");
+        } else {
+          alert("Không tìm thấy món ăn");
+        }
+      }
+      // hàm tìm kiếm món theo tên
+      function searchDish() {
+        let name = prompt("Mời bạn nhập tên món ăn cần tìm");
+        let searchDish = menuRestaurant.find((el) => el.name === name);
+        if (searchDish) {
+          console.log("Thông tin món ăn bạn cần tìm:");
+          for (let key in searchDish) {
+            console.log(`${key}: ${searchDish[key]}`);
+          }
+        } else {
+          alert("Thông tin món ăn không có trong menu");
+        }
+      }
+      do {
+        choice = +prompt(`1. Thêm món ăn vào danh mục.
+          2. Xóa món ăn theo tên khỏi danh mục.
+          3. Cập nhật thông tin theo tên của món ăn (tên, giá, mô tả).
+          4. Hiển thị toàn bộ menu gồm từng danh mục và từng món ăn.
+          5. Tìm kiếm món ăn theo tên trong toàn bộ menu.
+          6. Thoát`);
+        switch (choice) {
+          case 1:
+            addDish();
+            break;
+          case 2:
+            deleteDish();
+            break;
+          case 3:
+            updateDish();
+            break;
+          case 4:
+            inputRestaurant();
+            break;
+          case 5:
+            searchDish();
+            break;
+          case 6:
+            console.log("Thoát chương trình!");
+            break;
+          default:
+            console.log("Vui lòng nhập lựa chọn hợp lệ!");
+            break;
+        }
+      } while (choice !== 6);
+    </script>
+  </body>
+</html>

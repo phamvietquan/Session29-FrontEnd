@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      let choice;
+      let Contacts = [];
+      //hàm thêm đối tượng vào contact
+      function addContact() {
+        let id = +prompt("Mời bạn nhập vào id người liên hệ");
+        let checkId = Contacts.findIndex((element) => element.id === id);
+        if (checkId !== -1) {
+          alert("id đã tồn tại mời bạn nhập id khác");
+          return;
+        }
+        let name = prompt("Mời bạn nhập tên người liên hệ");
+        let email = prompt("Mời bạn nhập email người liên hệ");
+        let phone = +prompt("Mời bạn nhập số điện thoại người liên hệ");
+        let contact = {
+          id: id,
+          name: name,
+          email: email,
+          phone: phone,
+        };
+        Contacts.push(contact);
+        alert("Thêm liên hệ thành công");
+      }
+      // hàm input liên hệ
+      function inputContact() {
+        Contacts.forEach((element) => {
+          console.log(element);
+        });
+      }
+      // hàm tìm thông tin qua số điện thoại
+      function searchContact() {
+        let phone = +prompt("Mời bạn nhập vào số điện thoại cần tìm");
+        let checkPhone = Contacts.find((element) => element.phone === phone);
+        if (checkPhone) {
+          console.log("Liên hệ bạn cần tìm");
+          console.log(`Id:${checkPhone.id}`);
+          console.log(`Name:${checkPhone.name}`);
+          console.log(`Email:${checkPhone.email}`);
+          console.log(`Phone:${checkPhone.phone}`);
+        } else {
+          alert("Không tìm thấy liên hệ");
+          return;
+        }
+      }
+      //hàm cập nhập thông tin contact
+      function updateContact() {
+        let id = +prompt("Mời bạn nhập vào id cần cập nhập");
+        let searchId = Contacts.find((el) => el.id === id);
+        if (searchId) {
+          alert("Nhập thông tin cần cập nhập");
+          let name = prompt("Mời bạn nhập tên người liên hệ cần cập nhập");
+          let email = prompt("Mời bạn nhập email người liên hệ cần cập nhập");
+          let phone = +prompt(
+            "Mời bạn nhập số điện thoại người liên hệ cần cập nhập"
+          );
+          searchId.name = name;
+          searchId.email = email;
+          searchId.phone = phone;
+          alert("Cập nhập thông tin thành công");
+        }
+      }
+      // hàm xoá contact
+      function deleteContact() {
+        let id = +prompt("Mời bạn nhập vào id cần xoá");
+        let searchId = Contacts.findIndex((el) => el.id === id);
+        if (searchId !== -1) {
+          Contacts.splice(searchId, 1);
+          alert("Xoá contact thành công");
+        } else {
+          alert("Không tìm thấy id thông tin contact");
+          return;
+        }
+      }
+      do {
+        choice = +prompt(`1. Thêm đối tượng Contact vào danh sách liên hệ.
+        2. Hiển thị danh sách danh bạ.
+        3. Tìm kiếm thông tin Contact theo số điện thoại.
+        4. Cập nhật thông tin Contact(name, email, phone) theo id.
+        5. Xóa một đối tượng Contact khỏi danh sách danh bạ theo id.
+        6. Thoát.`);
+        switch (choice) {
+          case 1:
+            addContact();
+            break;
+          case 2:
+            inputContact();
+            break;
+          case 3:
+            searchContact();
+            break;
+          case 4:
+            updateContact();
+            break;
+          case 5:
+            deleteContact();
+            break;
+          default:
+            break;
+        }
+      } while (choice !== 6);
+    </script>
+  </body>
+</html>

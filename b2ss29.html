@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      let choice;
+      let products = [];
+      //hàm thêm sản phẩm vào products
+      function addProduct() {
+        let id = +prompt("Mời bạn nhập vào id sản phẩm");
+        let checkId = products.findIndex((element) => element.id === id);
+        if (checkId !== -1) {
+          alert("id đã tồn tại!");
+          return;
+        }
+        let name = prompt("Mời bạn nhập tên sản phẩm");
+        let price = prompt("Mời bạn nhập giá sản phẩm");
+        let category = +prompt("Mời bạn nhập danh mục sản phẩm");
+        let quantity = +prompt("Mời bạn nhập vào số lượng sản phẩm trong kho");
+        let product = {
+          id: id,
+          name: name,
+          price: price,
+          category: category,
+          quantity: quantity,
+        };
+        products.push(product);
+        alert("Thêm sản phẩm thành công");
+      }
+      // hàm input sản phẩm
+      function inputProducts() {
+        products.forEach((element) => {
+          console.log(element);
+        });
+      }
+      // hàm tìm sản phẩm qua id
+      function searchProduct() {
+        let id = +prompt("Mời bạn nhập vào id sản phẩm cần hiển thị");
+        let checkId = products.find((element) => element.id === id);
+        if (checkId) {
+          console.log("sản phẩm bạn cần tìm");
+          console.log(`Id:${checkId.id}`);
+          console.log(`Name:${checkId.name}`);
+          console.log(`Price:${checkId.price}`);
+          console.log(`Category:${checkId.category}`);
+          console.log(`Quantity:${checkId.quantity}`);
+        } else {
+          alert("Không tìm thấy sản phẩm");
+          return;
+        }
+      }
+      //hàm cập nhập thông tin sản phẩm
+      function updateProducts() {
+        let id = +prompt("Mời bạn nhập vào id cần cập nhập");
+        let searchId = products.find((el) => el.id === id);
+        if (searchId) {
+          alert("Nhập thông tin cần cập nhập");
+          let name = prompt("Mời bạn nhập tên sản phẩm");
+          let price = prompt("Mời bạn nhập giá sản phẩm");
+          let category = +prompt("Mời bạn nhập danh mục sản phẩm");
+          let quantity = +prompt(
+            "Mời bạn nhập vào số lượng sản phẩm trong kho"
+          );
+          searchId.name = name;
+          searchId.price = price;
+          searchId.category = category;
+          searchId.quantity = quantity;
+          alert("Cập nhập thông tin thành công");
+        }
+      }
+      // hàm xoá products
+      function deleteProduct() {
+        let id = +prompt("Mời bạn nhập vào id cần xoá");
+        let searchId = products.findIndex((el) => el.id === id);
+        if (searchId !== -1) {
+          products.splice(searchId, 1);
+          alert("Xoá products thành công");
+        } else {
+          alert("Không tìm thấy id thông tin products");
+          return;
+        }
+      }
+      // hàm lọc sản phẩm theo khoảng giá
+      function filterProductsByPrice() {
+        let maxPrice = +prompt("Mời bạn nhập giá max ");
+        let minPrice = +prompt("Mời bạn nhập giá min ");
+        products.filter((el) => el.price === price);
+        if (isNaN(minPrice) || isNaN(maxPrice) || minPrice > maxPrice) {
+          alert("Khoảng giá không hợp lệ!");
+          return;
+        } else {
+          let filteredProducts = products.filter(
+            (product) => product.price >= minPrice && product.price <= maxPrice
+          );
+          if (filteredProducts.length === 0) {
+            alert("Không có sản phẩm nào trong khoảng giá này!");
+            return;
+          }
+          console.log("Sản phẩm trong khoảng giá yêu cầu:");
+          filteredProducts.forEach((product) => {
+            console.log(
+              `ID: ${product.id}, Name: ${product.name}, Price: ${product.price}, Category: ${product.category}, Quantity: ${product.quantity}`
+            );
+          });
+        }
+      }
+      do {
+        choice = +prompt(`1. Thêm sản phẩm vào danh sách sản phẩm.
+        2. Hiển thị tất cả sản phẩm.
+        3. Hiển thị chi tiết sản phẩm theo id.
+        4. Cập nhật thông tin sản phẩm (name, price, category, quantity) theo id sản phẩm.
+        5. Xóa sản phẩm theo id.
+        6. Lọc sản phẩm theo khoảng giá.
+        7. Thoát.`);
+        switch (choice) {
+          case 1:
+            addProduct();
+            break;
+          case 2:
+            inputProducts();
+            break;
+          case 3:
+            searchProduct();
+            break;
+          case 4:
+            updateProducts();
+            break;
+          case 5:
+            deleteProduct();
+            break;
+          default:
+            break;
+        }
+      } while (choice !== 6);
+    </script>
+  </body>
+</html>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quản lý công việc</title>
+  </head>
+  <body>
+    <script>
+      let choice;
+      let taskList = [];
+      // Hàm thêm công việc
+      function addTask() {
+        let id = taskList.length + 1;
+        let name = prompt("Nhập tên công việc:");
+        let description = prompt("Nhập mô tả công việc:");
+        let startTime = prompt("Nhập thời gian bắt đầu (YYYY-MM-DD):");
+        let status = prompt(
+          "Nhập trạng thái (hoàn thành / chưa hoàn thành):"
+        ).toLowerCase();
+        let task = { id, name, description, startTime, status };
+        taskList.push(task);
+        console.log("Đã thêm công việc thành công!");
+      }
+      // Hàm hiển thị tất cả công việc
+      function displayTasks() {
+        if (taskList.length === 0) {
+          console.log("Danh sách công việc trống.");
+          return;
+        }
+        console.log("Danh sách công việc:");
+        taskList.forEach((task) => {
+          console.log(task);
+        });
+      }
+      // Hàm cập nhật trạng thái công việc
+      function updateTaskStatus() {
+        let id = +prompt("Nhập ID công việc cần cập nhật:");
+        let task = taskList.find((task) => task.id === id);
+        if (task) {
+          let newStatus = prompt(
+            "Nhập trạng thái mới (hoàn thành / chưa hoàn thành):"
+          ).toLowerCase();
+          task.status = newStatus;
+          console.log("Cập nhật trạng thái thành công!");
+        } else {
+          console.log("Không tìm thấy công việc có ID này.");
+        }
+      }
+      // Hàm lọc công việc theo trạng thái
+      function filterTasks() {
+        let statusFilter = prompt(
+          "Nhập trạng thái cần lọc (hoàn thành / chưa hoàn thành):"
+        ).toLowerCase();
+        let filteredTasks = taskList.filter(
+          (task) => task.status === statusFilter
+        );
+        if (filteredTasks.length === 0) {
+          console.log(
+            `Không có công việc nào có trạng thái "${statusFilter}".`
+          );
+          return;
+        }
+        console.log(`Danh sách công việc có trạng thái "${statusFilter}":`);
+        filteredTasks.forEach((task) => {
+          console.log(
+            `${task.id}. ${task.name} - ${task.description} - Bắt đầu: ${task.startTime} - Trạng thái: ${task.status}`
+          );
+        });
+      }
+      // Hàm sắp xếp công việc theo trạng thái
+      function sortTasks() {
+        taskList.sort((a, b) => (a.status > b.status ? 1 : -1));
+        console.log("Danh sách công việc đã được sắp xếp theo trạng thái:");
+        displayTasks();
+      }
+      do {
+        choice = +prompt(`1. Thêm công việc mới.
+2. Hiển thị tất cả các công việc.
+3. Cập nhật trạng thái công việc theo ID.
+4. Lọc các công việc theo trạng thái (hoàn thành / chưa hoàn thành).
+5. Sắp xếp các công việc theo trạng thái.
+6. Thoát.`);
+
+        switch (choice) {
+          case 1:
+            addTask();
+            break;
+          case 2:
+            displayTasks();
+            break;
+          case 3:
+            updateTaskStatus();
+            break;
+          case 4:
+            filterTasks();
+            break;
+          case 5:
+            sortTasks();
+            break;
+          case 6:
+            console.log("Thoát chương trình.");
+            break;
+          default:
+            console.log("Vui lòng chọn đúng số từ 1 đến 6.");
+            break;
+        }
+      } while (choice !== 6);
+    </script>
+  </body>
+</html>

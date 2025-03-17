@@ -11,7 +11,12 @@
       let taskList = [];
       // Hàm thêm công việc
       function addTask() {
-        let id = taskList.length + 1;
+        let id = +prompt("Mời bạn nhập id công việc");
+        let checkId = taskList.findIndex((el) => el.id === id);
+        if (checkId !== -1) {
+          alert("ID đã tồn tại");
+          return;
+        }
         let name = prompt("Nhập tên công việc:");
         let description = prompt("Nhập mô tả công việc:");
         let startTime = prompt("Nhập thời gian bắt đầu (YYYY-MM-DD):");
